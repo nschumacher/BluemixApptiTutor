@@ -1,0 +1,65 @@
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :username %><br>
+    <%= f.text_field :username %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br>
+    <%= f.text_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :isTutor %><br>
+    <%= f.check_box :isTutor %>
+  </div>
+  <div class="field">
+    <%= f.label :recieveReminders %><br>
+    <%= f.check_box :recieveReminders %>
+  </div>
+  <div class="field">
+    <%= f.label :profilePicture %><br>
+    <%= f.text_field :profilePicture %>
+  </div>
+  <div class="field">
+    <%= f.label :passwordRecoverQuestion1 %><br>
+    <%= f.text_field :passwordRecoverQuestion1 %>
+  </div>
+  <div class="field">
+    <%= f.label :passwordRecoverQuestion2 %><br>
+    <%= f.text_field :passwordRecoverQuestion2 %>
+  </div>
+  <div class="field">
+    <%= f.label :passwordRecoverAnswer1 %><br>
+    <%= f.text_field :passwordRecoverAnswer1 %>
+  </div>
+  <div class="field">
+    <%= f.label :passwordRecoverAnswer2 %><br>
+    <%= f.text_field :passwordRecoverAnswer2 %>
+  </div>
+  <div class="field">
+    <%= f.label :isStudent %><br>
+    <%= f.check_box :isStudent %>
+  </div>
+  <div class="field">
+    <%= f.label :aboutMe %><br>
+    <%= f.text_field :aboutMe %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

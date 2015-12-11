@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @user.username %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  <%= @user.password %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Istutor:</strong>
+  <%= @user.isTutor %>
+</p>
+
+<p>
+  <strong>Recievereminders:</strong>
+  <%= @user.recieveReminders %>
+</p>
+
+<p>
+  <strong>Profilepicture:</strong>
+  <%= @user.profilePicture %>
+</p>
+
+<p>
+  <strong>Passwordrecoverquestion1:</strong>
+  <%= @user.passwordRecoverQuestion1 %>
+</p>
+
+<p>
+  <strong>Passwordrecoverquestion2:</strong>
+  <%= @user.passwordRecoverQuestion2 %>
+</p>
+
+<p>
+  <strong>Passwordrecoveranswer1:</strong>
+  <%= @user.passwordRecoverAnswer1 %>
+</p>
+
+<p>
+  <strong>Passwordrecoveranswer2:</strong>
+  <%= @user.passwordRecoverAnswer2 %>
+</p>
+
+<p>
+  <strong>Isstudent:</strong>
+  <%= @user.isStudent %>
+</p>
+
+<p>
+  <strong>Aboutme:</strong>
+  <%= @user.aboutMe %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

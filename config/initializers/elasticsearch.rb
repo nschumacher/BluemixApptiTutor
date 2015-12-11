@@ -1,0 +1,1 @@
+ENV["ELASTICSEARCH_URL"] = "https://user:sw33tness@aws-us-east-1-portal9.dblayer.com:10301/"

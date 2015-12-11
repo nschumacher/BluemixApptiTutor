@@ -1,0 +1,271 @@
+<head>
+<%= csrf_meta_tag %>
+</head>
+<% content_for :javascript_includes do %>
+  <%= javascript_include_tag 'jquery.raty.js','ratyrate.js'%>
+<% end %> 
+
+  <script>
+  var aboutMe = "";
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover(); 
+        $("#selector").select2();
+        about_me = document.getElementById("about_me").getAttribute("data-about-me");
+        if(about_me != "" && about_me != null){
+          document.getElementById("about_me").innerHTML = about_me;
+        }
+    });
+    $('#messageModal').on('shown.bs.modal', function () {
+      $('#messageModal').focus()
+    });
+  </script>
+
+  <style>
+    .button_to {
+      display: inline;
+    }
+    .button_to div {
+      display: inline;
+    }
+  </style>
+<% if @userprofile.isTutor? %>
+<div class="container target">
+    <div class="row">
+        <div class="col-sm-10">
+             <h1 style="text-transform:capitalize;" class=""><% if @userprofile.first.blank? && @userprofile.last.blank?%>Nicolas Cage<% end %><%= @userprofile.first %> <%= @userprofile.last %></h1>
+             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#messageModal">Send me a message</button>
+            <% if current_userlogin.present? then %>
+              <%- unless current_userlogin.favorite_userlogins.exists?(id: @userprofile.id) -%>
+              <%= button_to 'Favorite Tutor', favorite_userlogins_path(userlogin_id: @userprofile.id), class: "btn btn-success", method: :post %>
+              <%- else -%>
+              <%= button_to 'Unfavorite', favorite_userlogin_path(id: @userprofile.id), class: "btn btn-success", method: :delete %>
+              <%- end -%>
+            <% end %>
+        </div>
+
+        <div class="col-sm-2">&nbsp<!--<img title="profile image" class="img-rounded img-responsive pull-right" src="<%#= @userprofile.avatar.url(:medium) %>">-->
+        </div>
+
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-3">
+            <!--left col-->
+            <ul class="list-group">
+                <li class="list-group-item text-muted" contenteditable="false" style="background-color:#F0F0F0; color: black">Profile</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Joined</strong></span><%= @userprofile.created_at.strftime("%F") %></li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Last seen </strong></span><%= @userprofile.last_sign_in_at.strftime("%F") %></li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Gender</strong></span><% if @userprofile.gender.blank? %>Not given<% end %>
+                  <%= @userprofile.gender %></li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Age </strong></span><% if @userprofile.calculate_age(@userprofile.birthday) == 0%> Not given <% else %><%= @userprofile.calculate_age(@userprofile.birthday) %><% end %></li>
+            </ul>
+
+            <% if @userprofile.isTutor? %>
+             <div class="panel panel-default">
+               <div class="panel-heading">Pricing</div>
+               <div class="panel-body"><% if @userprofile.price.blank? %>Not provided<%else%>$<%= @userprofile.price %><%end%></div>
+             </div>
+            <% end %>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Email</div>
+                <div class="panel-body"><a href="mailto:<%= @userprofile.email %>" class=""><%= @userprofile.email %></a></div>
+            </div>
+          
+            <% if @userprofile.isTutor? %>
+            <% if @userprofile != current_userlogin then %>
+              <ul class="list-group">
+
+                  <li class="list-group-item text-muted">Ratings</li>
+                  <li class="list-group-item text-right"><span class="pull-left"><a data-toggle="popover" data-trigger="hover" title="Popover Header" data-content="Some content inside the popover"><strong class="">Clarity </strong><span class="glyphicon glyphicon-info-sign"></span></a></span>
+                    
+                    <%= rating_for @userprofile, "clarity", disable_after_rate: false, 
+                    imdb_avg: true,
+                    cancel_off: "blank.jpg",
+                    cancel_on: "blank.jpg" %>
+
+                  </li>
+                  <li class="list-group-item text-right"><span class="pull-left"><a data-toggle="popover" data-trigger="hover" title="Popover Header" data-content="Some content inside the popover"><strong class="">Knowledge </strong><span class="glyphicon glyphicon-info-sign"></span></a></span> 
+
+                    <%= rating_for @userprofile, "knowledge", disable_after_rate: false, 
+                    imdb_avg: true,
+                    cancel_off: "blank.jpg",
+                    cancel_on: "blank.jpg" %></li>
+                  <li class="list-group-item text-right"><span class="pull-left"><a data-toggle="popover" data-trigger="hover" title="Popover Header" data-content="Some content inside the popover"><strong class="">Politeness </strong><span class="glyphicon glyphicon-info-sign"></span></a></span> 
+
+                    <%= rating_for @userprofile, "politeness", disable_after_rate: false, 
+                    imdb_avg: true,
+                    cancel_off: "blank.jpg",
+                    cancel_on: "blank.jpg" %></li>
+                  <li class="list-group-item text-right"><span class="pull-left"><a data-toggle="popover" data-trigger="hover" title="Popover Header" data-content="Some content inside the popover"><strong class="">Flexibility </strong><span class="glyphicon glyphicon-info-sign"></span></a></span> 
+
+                    <%= rating_for @userprofile, "flexibility", disable_after_rate: false, 
+                    imdb_avg: true,
+                    cancel_off: "blank.jpg",
+                    cancel_on: "blank.jpg" %></li>
+              </ul>
+              <% else %>
+                    <ul class="list-group">
+
+                  <li class="list-group-item text-muted">Ratings</li>
+                  <li class="list-group-item text-right"><span class="pull-left"><a data-toggle="popover" data-trigger="hover" title="Popover Header" data-content="Some content inside the popover"><strong class="">Clarity </strong><span class="glyphicon glyphicon-info-sign"></span></a></span>
+
+                    <div style="pointer-events: none;">                    
+                    <%= rating_for @userprofile, "clarity", disable_after_rate: false, 
+                    imdb_avg: true,
+                    cancel_off: "blank.jpg",
+                    cancel_on: "blank.jpg" %>
+                    </div>
+                  </li>
+                  <li class="list-group-item text-right"><span class="pull-left"><a data-toggle="popover" data-trigger="hover" title="Popover Header" data-content="Some content inside the popover"><strong class="">Knowledge </strong><span class="glyphicon glyphicon-info-sign"></span></a></span> 
+                    <div style="pointer-events: none;">
+                    <%= rating_for @userprofile, "knowledge", disable_after_rate: false, 
+                    imdb_avg: true,
+                    cancel_off: "blank.jpg",
+                    cancel_on: "blank.jpg" %>
+                    </div>
+                  </li>
+                  <li class="list-group-item text-right"><span class="pull-left"><a data-toggle="popover" data-trigger="hover" title="Popover Header" data-content="Some content inside the popover"><strong class="">Politeness </strong><span class="glyphicon glyphicon-info-sign"></span></a></span>
+                    <div style="pointer-events: none;">
+                    <%= rating_for @userprofile, "politeness", disable_after_rate: false, 
+                    imdb_avg: true,
+                    cancel_off: "blank.jpg",
+                    cancel_on: "blank.jpg" %>
+                    </div>
+                  </li>
+                  <li class="list-group-item text-right"><span class="pull-left"><a data-toggle="popover" data-trigger="hover" title="Popover Header" data-content="Some content inside the popover"><strong class="">Flexibility </strong><span class="glyphicon glyphicon-info-sign"></span></a></span>
+                    <div style="pointer-events: none;">
+                    <%= rating_for @userprofile, "flexibility", disable_after_rate: false, 
+                    imdb_avg: true,
+                    cancel_off: "blank.jpg",
+                    cancel_on: "blank.jpg" %>
+                    </div>
+                  </li>
+              </ul>
+              <% end %>
+          </div>
+        <% end %>
+
+        <!--/col-3-->
+        <div class="col-sm-9" style="" contenteditable="false">
+            <div class="panel panel-default">
+
+                <div class="panel-heading">About Me!</div>
+
+                <div class="panel-body" id="about_me" data-about-me="<%=@userprofile.aboutMe%>"><% if @userprofile.aboutMe.blank? %>Who am i?? If you'd like to know more, send me a message!<% end %></div>
+            </div>
+
+            <% if @userprofile.isTutor? %>
+              <div class="row">
+                <div class="col-sm-6" style="" contenteditable="false">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">My Skills</div>
+                        <% if @userprofile.skills.blank? %>
+                        <div class="panel-body">
+                          I swear I have mad skills! If you'd like to know more, send me a message!
+                        </div>
+                        <% end %>
+                        <div style="padding:5px">
+                          <% skilz = @userprofile.parse_database_tags(@userprofile.skills) %>
+                          <% skilz.each do |s|%>
+                            <% if s.blank? %>
+                            <% else %>
+                              <%= s %><%= "," %>
+                            <%end%>
+                          <%end%>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6" style="" contenteditable="false">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                        Classes I can Tutor
+                        </div>
+                        <% if @userprofile.classes.blank? %>
+                          <div class="panel-body">
+                            School is for chumps. If you'd like to know more, send me a message!
+                          </div>
+                        <% end %>
+                        <div style="padding:5px">
+                          <% course = @userprofile.parse_database_tags(@userprofile.classes) %>
+                          <% course.each do |s|%>
+                            <% if s.blank? %>
+                            <% else %>
+                              <%= s %><%= "," %>
+                            <%end%>
+                          <%end%>
+                        </div>
+                    </div>
+                </div>
+              </div>
+             <div class="panel panel-default">
+                  <div class="panel-heading">Reviews</div>
+                  <div class="panel-body">
+
+                    <% if @userreviews.blank? %>
+                      <h2> <strong>No reviews yet</strong><small><br> Be the first to write a review below! </small> </h2>
+                    <% end %>
+
+                    <% @userreviews.each do |r| %>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <strong><%= r.name %></strong>
+                          <br/>
+                          <p><%= r.body %></p> 
+                          <p><%= link_to 'Delete', userreview_path(r), method: :delete, data: { confirm: 'Are you sure?' } %></p>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+            </div>
+
+              <% if current_userlogin != @userprofile then %>
+                <div class="panel panel-default target">
+                  <div class="panel-heading" contenteditable="false">Write a Review</div>
+                  <div class="panel-body">
+                    <div class="row">
+                      <div class="col-md-12">
+                         <%= render 'userreviews/form' %>
+                      </div> 
+                  </div> 
+                </div>    
+              </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="modal fade" id="messageModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h2 class="modal-title">Send <% if @userprofile.first.blank? && @userprofile.last.blank?%>Nicolas Cage<% end %><%= @userprofile.first %> <%= @userprofile.last %> a message</h2>
+            </div>
+
+            <div class="modal-body">
+              <%= form_for :conversation, url: :conversations, html: { class: "" } do |f| %>    
+                <div class="form-group"  style="display: none;">   
+                  <%= f.label :recipient %>   
+                  <%= f.select(:recipients, Userlogin.all.collect {|p| [ p.email , p.id ] }, {:selected => [@userprofile.email, @userprofile.id]}, { multiple: true , id: "selector"})%>  
+
+                </div>
+                <div class="form-group">   
+                  <%= f.label :subject %>    
+                  <%= f.text_field :subject, placeholder: "I'd like you to tutor me!", class: "form-control" %>    
+                </div>   
+                <div class="form-group">   
+                  <%= f.label :message %>    
+                  <%= f.text_area :body, class: 'form-control',placeholder: "I need help with this class, this class, and this class. When would you be free to help?", rows: 4  %>    
+                </div>   
+                <%= f.submit "Send Message", class: "btn btn-success" %>   
+              <% end %>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+<% else %>
+<%=redTo404 %>
+<% end %>

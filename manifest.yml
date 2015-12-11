@@ -1,0 +1,13 @@
+applications:
+- path: .
+  memory: 256M
+  instances: 1
+  domain: mybluemix.net
+  name: apptitutor
+  host: apptitutor
+  disk_quota: 1024M
+  command: bundle exec rake db:migrate && bundle exec rails s -p $PORT
+  services:
+  - PostgreSQL by Compose-dq
+  - postgres-apptitutor
+  - Elasticsearch by Compose-eq

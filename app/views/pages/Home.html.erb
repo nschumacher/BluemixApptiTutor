@@ -1,0 +1,111 @@
+<!DOCTYPE html> 
+<html>
+  <head>
+  <!-- light blue: 0AC6FF -->
+  <style>
+    .content:before {
+      content: "";
+      position: fixed;
+      left: 0;
+      right: 0;
+      z-index: -1;
+      
+      display: block;
+      background-image: url('/assets/home_background_small.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      width: 100%;
+      height: 100%;
+      
+      -webkit-filter: blur(8px);
+      -moz-filter: blur(8px);
+      -o-filter: blur(8px);
+      -ms-filter: blur(8px);
+      filter: blur(8px);
+    }
+
+    .content {
+      position: fixed;
+      left: 0;
+      right: 0;
+      z-index: 0;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+
+    .myinput {
+      color: #208AD6;
+      width: 90%;
+      height: 35px;
+    }
+
+    .mybutton {
+      color: #208AD6;
+    }
+
+    .mysearchbar:before {
+      opacity: .7;
+      margin-left: 15%;
+      margin-top: -10px;
+
+      content: "";
+      position: fixed;
+      left: 0;
+      right: 0;
+      z-index: -1;
+      background-color: #208AD6;
+      display: block;
+      background-size: 100%;
+      width: 70%;
+      height: 10%;
+      box-shadow: 0px 3px 15px 3px black;
+      
+      -webkit-filter: blur(2px);
+      -moz-filter: blur(2px);
+      -o-filter: blur(2px);
+      -ms-filter: blur(2px);
+      filter: blur(2px);
+    }
+
+    .mysearchbar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      z-index: 0;
+      margin: 3% 15% 3% 15%; 
+      padding:8px 8px 5px 8px;
+    }
+  </style>
+  </head>
+
+  <body>
+
+    <div class="content">
+      <div class="" align="center" style="text-align: center;">
+
+        <img src="/assets/apptitutor-2.png" style="width:160px; margin-top: 1%">
+        
+        <h1 style="color: #208AD6; text-shadow: 3px 2px 6px black; font-size:400%"><b>ApptiTutor</b></h1>
+
+        <div style="text-align: center; font-size: x-large; text-shadow: 1px 1px 2px black; color: #208AD6">
+        <i>Find a tutor that fits your needs anywhere, anytime!</i></div>
+        
+        <div class="" align="center" style="margin-top: 20px; margin-right: 15%; margin-left: 15%">
+          <%= form_tag search_userlogins_path, method: :get, class: "", role: "search" do %>
+            <p>
+              <%= text_field_tag :search, params[:search], autofocus: true,  placeholder:"Search for a class, a skill, or a tutor by name!", class: "myinput form-control input-lg", style:"box-shadow: 0px 2px 15px #2B2B2B"; %>
+
+              
+            </p>
+          <% end %>
+        </div>
+      </div>
+      
+      <div align="center" style="color:white; font-size: large; margin-top: 10%; text-shadow: 1px 1px 2px black">
+          Have questions? Check out our <a href="/pages/FAQ" style="color:#008BE8; text-decoration:underline">FAQ!</a><br>
+          If you still have questions, <a href="/ContactUs" style="color:#008BE8; text-decoration:underline">Contact Us!</a>
+      </div>
+    </div>
+  </body>
+</html>
+

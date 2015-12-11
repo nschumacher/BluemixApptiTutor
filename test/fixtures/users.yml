@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  username: MyString
+  password: MyString
+  email: MyString
+  isTutor: false
+  recieveReminders: false
+  profilePicture: MyString
+  passwordRecoverQuestion1: MyString
+  passwordRecoverQuestion2: MyString
+  passwordRecoverAnswer1: MyString
+  passwordRecoverAnswer2: MyString
+  isStudent: false
+  aboutMe: MyString
+
+two:
+  username: MyString
+  password: MyString
+  email: MyString
+  isTutor: false
+  recieveReminders: false
+  profilePicture: MyString
+  passwordRecoverQuestion1: MyString
+  passwordRecoverQuestion2: MyString
+  passwordRecoverAnswer1: MyString
+  passwordRecoverAnswer2: MyString
+  isStudent: false
+  aboutMe: MyString
