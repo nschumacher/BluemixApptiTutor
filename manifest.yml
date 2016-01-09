@@ -6,8 +6,9 @@ applications:
   name: apptitutor
   host: apptitutor
   disk_quota: 1024M
-  command: bundle exec rake db:migrate && bundle exec rails s -p $PORT
+  command: bundle exec rake searchkick:reindex CLASS=Userlogin && bundle exec rails s -p $PORT
   services:
-  - PostgreSQL by Compose-dq
-  - postgres-apptitutor
-  - Elasticsearch by Compose-eq
+  #- PostgreSQL by Compose-dq
+  #- postgres-apptitutor
+  - elephantSQL-apptitutor
+  - Elasticsearch by Compose-t8

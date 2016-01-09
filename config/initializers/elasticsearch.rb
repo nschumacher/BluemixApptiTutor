@@ -1,1 +1,1 @@
-ENV["ELASTICSEARCH_URL"] = "https://user:sw33tness@aws-us-east-1-portal9.dblayer.com:10301/"
+ENV["ELASTICSEARCH_URL"] = "https://admin:letmeinnow@aws-us-east-1-portal6.dblayer.com:11195/"
